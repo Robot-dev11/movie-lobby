@@ -21,4 +21,22 @@ export class MovieService {
         const res = await this.movieModel.create(movie);
         return res;
     }
+
+    async search(title: string, genre: string): Promise<Movie[]> {
+        const query: any = {};
+        if (title) {
+            query.title = { $regex: title, $options: 'i' }; // Case-insensitive title search
+        }
+        if (genre) {
+            query.genre = { $regex: genre, $options: 'i' }; // Case-insensitive genre search
+        }
+        return this.movieModel.find(query).exec();
+    }
+
+    async updateById(id: string, movie: Movie): Promise<Movie>{
+        return await this.movieModel.findByIdAndUpdate(id, movie, {
+            new: true,
+            runValidators: true
+        })
+    }
 }
