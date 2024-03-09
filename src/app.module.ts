@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { MovieModule } from './movie/movie.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
@@ -14,7 +15,8 @@ import { MongooseModule } from '@nestjs/mongoose';
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.DB_URI),
-    MovieModule],
+    MovieModule,
+    AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
